@@ -7,14 +7,17 @@ public class CharacterController2D : MonoBehaviour
 	[Range(0, .3f)] [SerializeField] private float m_MovementSmoothing = .05f;	// How much to smooth out the movement
 	[SerializeField] private bool m_AirControl = false;							// Whether or not a player can steer while jumping;
 	[SerializeField] private LayerMask m_WhatIsGround;							// A mask determining what is ground to the character
-	[SerializeField] private Transform m_GroundCheck;							// A position marking where to check if the player is grounded.
-	[SerializeField] private Transform m_CeilingCheck;                          // A position marking where to check for ceilings
+	[SerializeField] private Transform m_GroundCheck;                           // A position marking where to check if the player is grounded.
+    [SerializeField] private Transform m_LeftPillarCheck;                       // A position marking where to check if the player is near a pillar on the left side.
+    [SerializeField] private Transform m_RightPillarCheck;                      // A position marking where to check if the player is near a pillar on the right side.
+    [SerializeField] private LayerMask m_WhatIsPillar;							// A mask determining what is ground to the character
 
-	const float k_GroundedRadius = .2f; // Radius of the overlap circle to determine if grounded
-	private bool m_Grounded;            // Whether or not the player is grounded.
-	const float k_CeilingRadius = .2f; // Radius of the overlap circle to determine if the player can stand up
+    const float k_PillarSearchRadius = .2f;                                     // Radius of the overlap circle to determine if the player is near a pillar.
+    const float k_GroundedRadius = .2f;											// Radius of the overlap circle to determine if grounded
+	private bool m_Grounded;                                                    // Whether or not the player is grounded.
+    private bool m_IsNearPillar;                                                // Whether or not the player is near a pillar.
 	private Rigidbody2D m_Rigidbody2D;
-	private bool m_FacingRight = true;  // For determining which way the player is currently facing.
+	private bool m_FacingRight = true;											// For determining which way the player is currently facing.
 	private Vector3 m_Velocity = Vector3.zero;
 
 	[Header("Events")]
@@ -51,10 +54,12 @@ public class CharacterController2D : MonoBehaviour
 					OnLandEvent.Invoke();
 			}
 		}
-	}
+
+		IsNearAnyPillar();
+    }
 
 
-	public void Move(float move)
+    public void Move(float move)
 	{
 
 		//only control the player if grounded or airControl is turned on
@@ -86,7 +91,7 @@ public class CharacterController2D : MonoBehaviour
 			else
 			{
                 // Move the character by finding the target velocity
-                Vector3 targetVelocity = new Vector2(0.0f, move);
+                Vector3 targetVelocity = new Vector2(m_Rigidbody2D.velocity.x, move * 10f);
 
                 // And then smoothing it out and applying it to the character
                 m_Rigidbody2D.velocity = Vector3.SmoothDamp(m_Rigidbody2D.velocity, targetVelocity, ref m_Velocity, m_MovementSmoothing);
@@ -119,4 +124,36 @@ public class CharacterController2D : MonoBehaviour
 	{
 		return m_Grounded;
 	}
+
+    public bool IsNearToAPillar(Transform pPillarCheck)
+    {
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(pPillarCheck.position, k_PillarSearchRadius, m_WhatIsPillar);
+        for (int i = 0; i < colliders.Length; i++)
+        {
+            if (colliders[i].gameObject != gameObject && colliders[i].gameObject.tag == "Pillar")
+            {
+                //gameObject.transform.position = colliders[i].transform.position;
+
+                m_IsNearPillar = true;
+                return m_IsNearPillar;
+            }
+        }
+
+		m_IsNearPillar = false;
+        return m_IsNearPillar;
+    }
+
+    public bool IsNearAnyPillar ()
+	{
+		if (IsNearToAPillar(m_LeftPillarCheck) && m_FacingRight)
+		{
+            Flip();
+			return m_IsNearPillar;
+        }
+
+        if (IsNearToAPillar(m_RightPillarCheck) && !m_FacingRight)
+            Flip();
+
+		return m_IsNearPillar;
+    }
 }

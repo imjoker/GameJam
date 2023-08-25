@@ -31,11 +31,19 @@ public class PlayerMovement : MonoBehaviour
 
         finalSpeed = speed;
 
-        if (Input.GetButtonDown("Climb"))
+        if (Input.GetButtonDown("Climb") && controller.IsNearAnyPillar())
+        {
+            // Stops the player from being affected by gravity while on ladder
+            gameObject.GetComponent<Rigidbody2D>().gravityScale = 0;
             Global.currState = Global.ePlayerState.CLIMB;
+        }
 
-        if (Input.GetButtonUp("Climb"))
+        if (Input.GetButtonUp("Climb") && Global.isClimbing())
+        {
+            // reset gravity
+            gameObject.GetComponent<Rigidbody2D>().gravityScale = Global.defGravityScale;
             Global.currState = Global.ePlayerState.WALK;
+        }
 
         if (Input.GetButtonDown("Jump"))
         {
@@ -66,10 +74,9 @@ public class PlayerMovement : MonoBehaviour
         if (Global.isJumping())
             Global.currState = Global.ePlayerState.WALK;
 
-        if (controller.IsGrounded())
+        if (controller.IsGrounded() && !Global.isClimbing())
         {
             gameObject.GetComponent<Rigidbody2D>().gravityScale = Global.defGravityScale;
-            Global.currState = Global.ePlayerState.WALK;
         }
     }
 }
