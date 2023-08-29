@@ -18,6 +18,9 @@ public class PlayerMovement : MonoBehaviour
     public float speed = 25f;
     public float climbSpeed = 1f;
 
+    //Code added by Joe to enable camera following character
+    public Camera mianCamera;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -62,6 +65,9 @@ public class PlayerMovement : MonoBehaviour
 
         horizontalMove = Input.GetAxisRaw("Horizontal") * finalSpeed;
         verticalMove   = Input.GetAxisRaw("Vertical") * climbSpeed;
+
+        //Code added by Joe to enable camera following character
+        mianCamera.transform.position = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, -10);
     }
 
     void FixedUpdate ()
