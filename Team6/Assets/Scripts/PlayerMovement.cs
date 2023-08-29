@@ -80,9 +80,10 @@ public class PlayerMovement : MonoBehaviour
         if (Global.isJumping())
             Global.currState = Global.ePlayerState.WALK;
 
-        if (controller.IsGrounded() && !Global.isClimbing())
+        if ((controller.IsGrounded() && !Global.isClimbing()) || (!controller.m_IsNearPillar))
         {
             gameObject.GetComponent<Rigidbody2D>().gravityScale = Global.defGravityScale;
+            Global.currState = Global.ePlayerState.WALK;
         }
     }
 }

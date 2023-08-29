@@ -3,21 +3,21 @@ using UnityEngine.Events;
 
 public class CharacterController2D : MonoBehaviour
 {
-	[SerializeField] private float m_JumpForce = 400f;							// Amount of force added when the player jumps.
-	[Range(0, .3f)] [SerializeField] private float m_MovementSmoothing = .05f;	// How much to smooth out the movement
-	[SerializeField] private bool m_AirControl = false;							// Whether or not a player can steer while jumping;
-	[SerializeField] private LayerMask m_WhatIsGround;							// A mask determining what is ground to the character
+	[SerializeField] private float m_JumpForce = 400f;                          // Amount of force added when the player jumps.
+	[Range(0, .3f)][SerializeField] private float m_MovementSmoothing = .05f;   // How much to smooth out the movement
+	[SerializeField] private bool m_AirControl = false;                         // Whether or not a player can steer while jumping;
+	[SerializeField] private LayerMask m_WhatIsGround;                          // A mask determining what is ground to the character
 	[SerializeField] private Transform m_GroundCheck;                           // A position marking where to check if the player is grounded.
-    [SerializeField] private Transform m_LeftPillarCheck;                       // A position marking where to check if the player is near a pillar on the left side.
-    [SerializeField] private Transform m_RightPillarCheck;                      // A position marking where to check if the player is near a pillar on the right side.
-    [SerializeField] private LayerMask m_WhatIsPillar;							// A mask determining what is ground to the character
+	[SerializeField] private Transform m_LeftPillarCheck;                       // A position marking where to check if the player is near a pillar on the left side.
+	[SerializeField] private Transform m_RightPillarCheck;                      // A position marking where to check if the player is near a pillar on the right side.
+	[SerializeField] private LayerMask m_WhatIsPillar;                          // A mask determining what is ground to the character
 
-    const float k_PillarSearchRadius = .2f;                                     // Radius of the overlap circle to determine if the player is near a pillar.
-    const float k_GroundedRadius = .2f;											// Radius of the overlap circle to determine if grounded
+	const float k_PillarSearchRadius = .2f;                                     // Radius of the overlap circle to determine if the player is near a pillar.
+	const float k_GroundedRadius = .2f;                                         // Radius of the overlap circle to determine if grounded
 	private bool m_Grounded;                                                    // Whether or not the player is grounded.
-    private bool m_IsNearPillar;                                                // Whether or not the player is near a pillar.
+	public bool m_IsNearPillar;                                                // Whether or not the player is near a pillar.
 	private Rigidbody2D m_Rigidbody2D;
-	private bool m_FacingRight = true;											// For determining which way the player is currently facing.
+	private bool m_FacingRight = true;                                          // For determining which way the player is currently facing.
 	private Vector3 m_Velocity = Vector3.zero;
 
 	[Header("Events")]
@@ -56,10 +56,10 @@ public class CharacterController2D : MonoBehaviour
 		}
 
 		IsNearAnyPillar();
-    }
+	}
 
 
-    public void Move(float move)
+	public void Move(float move)
 	{
 
 		//only control the player if grounded or airControl is turned on
@@ -90,17 +90,17 @@ public class CharacterController2D : MonoBehaviour
 			}
 			else
 			{
-                // Move the character by finding the target velocity
-                Vector3 targetVelocity = new Vector2(m_Rigidbody2D.velocity.x, move * 10f);
+				// Move the character by finding the target velocity
+				Vector3 targetVelocity = new Vector2(m_Rigidbody2D.velocity.x, move * 10f);
 
-                // And then smoothing it out and applying it to the character
-                m_Rigidbody2D.velocity = Vector3.SmoothDamp(m_Rigidbody2D.velocity, targetVelocity, ref m_Velocity, m_MovementSmoothing);
-            }
+				// And then smoothing it out and applying it to the character
+				m_Rigidbody2D.velocity = Vector3.SmoothDamp(m_Rigidbody2D.velocity, targetVelocity, ref m_Velocity, m_MovementSmoothing);
+			}
 
 		}
 
 		// If the player should jump...
-		if (m_Grounded && Global.isJumping())
+		if ((m_Grounded || m_IsNearPillar) && Global.isJumping())
 		{
 			// Add a vertical force to the player.
 			m_Grounded = false;
