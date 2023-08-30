@@ -17,6 +17,8 @@ public class PlayerMovement : MonoBehaviour
     float verticalMove = 0f;
     public float speed = 25f;
     public float climbSpeed = 1f;
+    public bool IsClimbingAbilityUnlocked = false;
+
 
     //Code added by Joe to enable camera following character
     public Camera mianCamera;
@@ -34,8 +36,10 @@ public class PlayerMovement : MonoBehaviour
 
         finalSpeed = speed;
 
-        if (Input.GetButtonDown("Climb") && controller.IsNearAnyPillar())
+        if (IsClimbingAbilityUnlocked && Input.GetButtonDown("Climb") && controller.IsNearAnyPillar())
         {
+            // TODO: Add transition to Monkey here.
+
             // Stops the player from being affected by gravity while on ladder
             gameObject.GetComponent<Rigidbody2D>().gravityScale = 0;
             Global.currState = Global.ePlayerState.CLIMB;
@@ -43,6 +47,8 @@ public class PlayerMovement : MonoBehaviour
 
         if (Input.GetButtonUp("Climb") && Global.isClimbing())
         {
+            // TODO: Add transition back to player here.
+
             // reset gravity
             gameObject.GetComponent<Rigidbody2D>().gravityScale = Global.defGravityScale;
             Global.currState = Global.ePlayerState.WALK;

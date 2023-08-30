@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Numerics;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Networking.Types;
@@ -19,6 +20,8 @@ public class MonkeyAI : MonoBehaviour
 
     private int currAudioNdx = 0;
 
+    PlayerMovement player;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -31,6 +34,8 @@ public class MonkeyAI : MonoBehaviour
         if (Input.GetButtonUp("Interact") && isPlayerNearby)
         {
 
+            player.IsClimbingAbilityUnlocked = true;
+
             source.clip = audioClips[currAudioNdx];
 
             source.Play();
@@ -42,6 +47,8 @@ public class MonkeyAI : MonoBehaviour
     {
         if (other.tag != "Player")
             return;
+
+        player = other.GetComponent<PlayerMovement>();
 
         text.enabled = true;
         isPlayerNearby = true;
