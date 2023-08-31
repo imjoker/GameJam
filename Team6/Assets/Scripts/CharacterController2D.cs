@@ -55,11 +55,12 @@ public class CharacterController2D : MonoBehaviour
 			}
 		}
 
-		IsNearAnyPillar();
-	}
+		//IsNearToAPillar(m_LeftPillarCheck);
+		//IsNearToAPillar(m_RightPillarCheck);
+    }
 
 
-	public void Move(float move)
+	public void Move(float HorizontalMove, float VerticalMove)
 	{
 
 		//only control the player if grounded or airControl is turned on
@@ -70,19 +71,19 @@ public class CharacterController2D : MonoBehaviour
 			{
 
 				// Move the character by finding the target velocity
-				Vector3 targetVelocity = new Vector2(move * 10f, m_Rigidbody2D.velocity.y);
+				Vector3 targetVelocity = new Vector2(HorizontalMove * 10f, m_Rigidbody2D.velocity.y);
 
 				// And then smoothing it out and applying it to the character
 				m_Rigidbody2D.velocity = Vector3.SmoothDamp(m_Rigidbody2D.velocity, targetVelocity, ref m_Velocity, m_MovementSmoothing);
 
 				// If the input is moving the player right and the player is facing left...
-				if (move > 0 && !m_FacingRight)
+				if (HorizontalMove > 0 && !m_FacingRight)
 				{
 					// ... flip the player.
 					Flip();
 				}
 				// Otherwise if the input is moving the player left and the player is facing right...
-				else if (move < 0 && m_FacingRight)
+				else if (HorizontalMove < 0 && m_FacingRight)
 				{
 					// ... flip the player.
 					Flip();
@@ -91,7 +92,7 @@ public class CharacterController2D : MonoBehaviour
 			else
 			{
 				// Move the character by finding the target velocity
-				Vector3 targetVelocity = new Vector2(m_Rigidbody2D.velocity.x, move * 10f);
+				Vector3 targetVelocity = new Vector2(HorizontalMove * 10f, VerticalMove * 10f);
 
 				// And then smoothing it out and applying it to the character
 				m_Rigidbody2D.velocity = Vector3.SmoothDamp(m_Rigidbody2D.velocity, targetVelocity, ref m_Velocity, m_MovementSmoothing);
@@ -105,6 +106,9 @@ public class CharacterController2D : MonoBehaviour
 			// Add a vertical force to the player.
 			m_Grounded = false;
 			m_Rigidbody2D.AddForce(new Vector2(0f, m_JumpForce));
+
+			if (Global.isJumping())
+				Global.currState = Global.ePlayerState.WALK;
 		}
     }
 

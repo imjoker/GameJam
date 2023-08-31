@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    enum ePlayerState : int { 
-    
+    enum ePlayerState : int {
+
         WALK = 0,
         RUN,
         JUMP,
@@ -26,7 +26,7 @@ public class PlayerMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
@@ -36,7 +36,7 @@ public class PlayerMovement : MonoBehaviour
 
         finalSpeed = speed;
 
-        if (IsClimbingAbilityUnlocked && Input.GetButtonDown("Climb") && controller.IsNearAnyPillar())
+        if (IsClimbingAbilityUnlocked && Input.GetButton("Climb") && controller.IsNearAnyPillar())
         {
             // TODO: Add transition to Monkey here.
 
@@ -45,19 +45,13 @@ public class PlayerMovement : MonoBehaviour
             Global.currState = Global.ePlayerState.CLIMB;
         }
 
-        if (Input.GetButtonUp("Climb") && Global.isClimbing())
+        if (!Input.GetButton("Climb") && Global.isClimbing())
         {
             // TODO: Add transition back to player here.
 
             // reset gravity
             gameObject.GetComponent<Rigidbody2D>().gravityScale = Global.defGravityScale;
             Global.currState = Global.ePlayerState.WALK;
-        }
-
-        if (Input.GetButtonDown("Jump"))
-        {
-            Global.currState = Global.ePlayerState.JUMP;
-            gameObject.GetComponent<Rigidbody2D>().gravityScale = Global.defGravityScale;
         }
 
         if (Input.GetButtonUp("Run") && Global.isRunning())
@@ -69,24 +63,33 @@ public class PlayerMovement : MonoBehaviour
             finalSpeed *= 1.5f;
         }
 
+        if (Input.GetButtonDown("Jump"))
+        {
+            Global.currState = Global.ePlayerState.JUMP;
+            gameObject.GetComponent<Rigidbody2D>().gravityScale = Global.defGravityScale;
+        }
+
+
+    SetSpeed:
+
         horizontalMove = Input.GetAxisRaw("Horizontal") * finalSpeed;
-        verticalMove   = Input.GetAxisRaw("Vertical") * climbSpeed;
+        verticalMove = Input.GetAxisRaw("Vertical") * climbSpeed;
 
         //Code added by Joe to enable camera following character
         mianCamera.transform.position = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, -10);
     }
 
-    void FixedUpdate ()
+    void FixedUpdate()
     {
         if (!Global.isClimbing())
-            controller.Move(horizontalMove * Time.fixedDeltaTime);
+            controller.Move(horizontalMove * Time.fixedDeltaTime, verticalMove * Time.fixedDeltaTime);
         else
-            controller.Move(verticalMove * Time.fixedDeltaTime);
+            controller.Move(horizontalMove * Time.fixedDeltaTime, verticalMove * Time.fixedDeltaTime);
 
-        if (Global.isJumping())
-            Global.currState = Global.ePlayerState.WALK;
+        //if (Global.isJumping())
+        //    Global.currState = Global.ePlayerState.WALK;
 
-        if ((controller.IsGrounded() && !Global.isClimbing()) || (!controller.m_IsNearPillar))
+        if ((controller.IsGrounded() && !Global.isClimbing()) || !controller.m_IsNearPillar)
         {
             gameObject.GetComponent<Rigidbody2D>().gravityScale = Global.defGravityScale;
             Global.currState = Global.ePlayerState.WALK;
