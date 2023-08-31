@@ -55,9 +55,9 @@ public class CharacterController2D : MonoBehaviour
 			}
 		}
 
-		//IsNearToAPillar(m_LeftPillarCheck);
-		//IsNearToAPillar(m_RightPillarCheck);
-    }
+		IsNearAnyPillar();
+
+	}
 
 
 	public void Move(float HorizontalMove, float VerticalMove)
@@ -67,11 +67,12 @@ public class CharacterController2D : MonoBehaviour
 		if (m_Grounded || m_AirControl)
 		{
 
-			if (!Global.isClimbing())
+			if (!Global.isClimbing()) // Walk / Jump
 			{
+				float verticalVelocity = Global.isJumping() ? VerticalMove : m_Rigidbody2D.velocity.y;
 
 				// Move the character by finding the target velocity
-				Vector3 targetVelocity = new Vector2(HorizontalMove * 10f, m_Rigidbody2D.velocity.y);
+				Vector3 targetVelocity = new Vector2(HorizontalMove * 10f, verticalVelocity);
 
 				// And then smoothing it out and applying it to the character
 				m_Rigidbody2D.velocity = Vector3.SmoothDamp(m_Rigidbody2D.velocity, targetVelocity, ref m_Velocity, m_MovementSmoothing);
@@ -92,7 +93,7 @@ public class CharacterController2D : MonoBehaviour
 			else
 			{
 				// Move the character by finding the target velocity
-				Vector3 targetVelocity = new Vector2(HorizontalMove * 10f, VerticalMove * 10f);
+				Vector3 targetVelocity = new Vector2(m_Rigidbody2D.velocity.x, VerticalMove * 10f);
 
 				// And then smoothing it out and applying it to the character
 				m_Rigidbody2D.velocity = Vector3.SmoothDamp(m_Rigidbody2D.velocity, targetVelocity, ref m_Velocity, m_MovementSmoothing);

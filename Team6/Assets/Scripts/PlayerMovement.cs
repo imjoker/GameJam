@@ -77,14 +77,8 @@ public class PlayerMovement : MonoBehaviour
 
         //Code added by Joe to enable camera following character
         mianCamera.transform.position = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, -10);
-    }
 
-    void FixedUpdate()
-    {
-        if (!Global.isClimbing())
-            controller.Move(horizontalMove * Time.fixedDeltaTime, verticalMove * Time.fixedDeltaTime);
-        else
-            controller.Move(horizontalMove * Time.fixedDeltaTime, verticalMove * Time.fixedDeltaTime);
+        controller.Move(horizontalMove * Time.fixedDeltaTime, verticalMove * Time.fixedDeltaTime);
 
         //if (Global.isJumping())
         //    Global.currState = Global.ePlayerState.WALK;
@@ -94,5 +88,10 @@ public class PlayerMovement : MonoBehaviour
             gameObject.GetComponent<Rigidbody2D>().gravityScale = Global.defGravityScale;
             Global.currState = Global.ePlayerState.WALK;
         }
+    }
+
+    void FixedUpdate()
+    {
+
     }
 }
