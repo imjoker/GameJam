@@ -20,7 +20,14 @@ public class CharacterController2D : MonoBehaviour
 	private bool m_FacingRight = true;                                          // For determining which way the player is currently facing.
 	private Vector3 m_Velocity = Vector3.zero;
 
-	[Header("Events")]
+	// need these to move player along with platform
+    [SerializeField] private LayerMask platformLayer;
+    private Transform platform = null;
+    private bool isOnThePlatform = false;
+
+	public Transform savedCheckPoint;
+
+    [Header("Events")]
 	[Space]
 
 	public UnityEvent OnLandEvent;
@@ -34,7 +41,9 @@ public class CharacterController2D : MonoBehaviour
 
 		if (OnLandEvent == null)
 			OnLandEvent = new UnityEvent();
-	}
+
+        savedCheckPoint = transform;
+    }
 
 	private void FixedUpdate()
 	{
@@ -56,9 +65,17 @@ public class CharacterController2D : MonoBehaviour
 		}
 
 		IsNearAnyPillar();
+    }
 
-	}
+	private void Update ()
+	{
+        if (platform != null)
+            transform.parent = platform;
+        else
+            transform.parent = null;
 
+        isOnThePlatform = isOnPlatform();
+    }
 
 	public void Move(float HorizontalMove, float VerticalMove)
 	{
@@ -161,4 +178,26 @@ public class CharacterController2D : MonoBehaviour
 
 		return m_IsNearPillar;
     }
+
+    private bool isOnPlatform()
+    {
+        RaycastHit2D hit = Physics2D.CircleCast(m_GroundCheck.position, k_GroundedRadius, Vector2.down, 0.1f, platformLayer);
+
+        if (hit)
+			isOnThePlatform = true;
+        
+		if (hit)
+			this.platform = hit.collider.gameObject.transform;
+        else
+			this.platform = null;
+        
+		return hit.collider != null;
+    }
+
+	public void ReSpawnAtSavedCheckPoint ()
+	{
+		transform.position = savedCheckPoint.position;
+
+		gameObject.SetActive(true);
+	}
 }

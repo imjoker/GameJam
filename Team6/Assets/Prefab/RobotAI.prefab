@@ -43,6 +43,7 @@ GameObject:
   - component: {fileID: 18120784293871967}
   - component: {fileID: 18120784293871960}
   - component: {fileID: 6428456708783699971}
+  - component: {fileID: 8093743343484155455}
   m_Layer: 0
   m_Name: Robot
   m_TagString: Untagged
@@ -118,7 +119,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 18120784293871954}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 061ab6247b54dfc4abab6008953cb3b3, type: 3}
   m_Name: 
@@ -176,6 +177,21 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &8093743343484155455
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 18120784293871954}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5c0063123f3c0145998bcf7979a8a47, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 5
+  startPos: {fileID: 18120784443931699}
+  endPos: {fileID: 18120783849703242}
 --- !u!1 &18120784443931698
 GameObject:
   m_ObjectHideFlags: 0

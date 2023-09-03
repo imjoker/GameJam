@@ -22,8 +22,9 @@ public class DangerZone : MonoBehaviour
         if (other.tag != "Player")
             return;
 
-        Destroy(other.gameObject);
-        // Respawn
+        other.gameObject.SetActive(false);
+
+        other.gameObject.GetComponent<CharacterController2D>().Invoke("ReSpawnAtSavedCheckPoint", 2);
     }
 
 }
