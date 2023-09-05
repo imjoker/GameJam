@@ -4,7 +4,6 @@ using System.Numerics;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Networking.Types;
-
 public class MonkeyAI : MonoBehaviour
 {
     [SerializeField]
@@ -22,10 +21,12 @@ public class MonkeyAI : MonoBehaviour
 
     PlayerMovement player;
 
+    private Animator MonkeyAnimator;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        MonkeyAnimator = GetComponent<Animator>();
     }
 
     // Update is called once per frame

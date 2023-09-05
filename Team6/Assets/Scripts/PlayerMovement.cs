@@ -13,11 +13,15 @@ public class PlayerMovement : MonoBehaviour
     }
 
     public CharacterController2D controller;
+    private Animator PlayerAnimator;
     float horizontalMove = 0f;
     float verticalMove = 0f;
     public float speed = 25f;
     public float climbSpeed = 1f;
     public bool IsClimbingAbilityUnlocked = false;
+
+    public string FootStepName;
+    const string SoundPath= "event:/Player/";
 
 
     //Code added by Joe to enable camera following character
@@ -26,6 +30,7 @@ public class PlayerMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        PlayerAnimator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -42,6 +47,8 @@ public class PlayerMovement : MonoBehaviour
             // Stops the player from being affected by gravity while on ladder
             gameObject.GetComponent<Rigidbody2D>().gravityScale = 0;
             Global.currState = Global.ePlayerState.CLIMB;
+            PlayerAnimator.SetTrigger("Climb");
+            FMODUnity.RuntimeManager.PlayOneShot("event:/Player/climb");
         }
 
         if (!Input.GetButton("Climb") && Global.isClimbing())
@@ -51,6 +58,7 @@ public class PlayerMovement : MonoBehaviour
             // reset gravity
             gameObject.GetComponent<Rigidbody2D>().gravityScale = Global.defGravityScale;
             Global.currState = Global.ePlayerState.WALK;
+            FMODUnity.RuntimeManager.PlayOneShot("event:/Player/land");
         }
 
         if (Input.GetButtonUp("Run") && Global.isRunning())
@@ -66,6 +74,8 @@ public class PlayerMovement : MonoBehaviour
         {
             Global.currState = Global.ePlayerState.JUMP;
             gameObject.GetComponent<Rigidbody2D>().gravityScale = Global.defGravityScale;
+            FMODUnity.RuntimeManager.PlayOneShot("event:/Player/jump");
+            PlayerAnimator.SetTrigger("Jump");
         }
 
 
@@ -73,6 +83,7 @@ public class PlayerMovement : MonoBehaviour
 
         horizontalMove = Input.GetAxisRaw("Horizontal") * finalSpeed;
         verticalMove = Input.GetAxisRaw("Vertical") * climbSpeed;
+        PlayerAnimator.SetFloat("Speed", Mathf.Abs(horizontalMove));
 
         //Code added by Joe to enable camera following character
         mianCamera.transform.position = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, -10);
@@ -88,6 +99,12 @@ public class PlayerMovement : MonoBehaviour
             Global.currState = Global.ePlayerState.WALK;
         }
     }
+
+    public void PlayFootStep()
+    {
+        FMODUnity.RuntimeManager.PlayOneShot(SoundPath+ FootStepName);
+    }
+
 
     void FixedUpdate()
     {
