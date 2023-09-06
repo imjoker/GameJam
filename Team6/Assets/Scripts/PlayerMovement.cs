@@ -14,6 +14,7 @@ public class PlayerMovement : MonoBehaviour
 
     public CharacterController2D controller;
     private Animator PlayerAnimator;
+    private FMOD.Studio.EventInstance ClimbingSound;
     float horizontalMove = 0f;
     float verticalMove = 0f;
     public float speed = 25f;
@@ -48,7 +49,6 @@ public class PlayerMovement : MonoBehaviour
             gameObject.GetComponent<Rigidbody2D>().gravityScale = 0;
             Global.currState = Global.ePlayerState.CLIMB;
             PlayerAnimator.SetTrigger("Climb");
-            FMODUnity.RuntimeManager.PlayOneShot("event:/Player/climb");
         }
 
         if (!Input.GetButton("Climb") && Global.isClimbing())
@@ -58,7 +58,6 @@ public class PlayerMovement : MonoBehaviour
             // reset gravity
             gameObject.GetComponent<Rigidbody2D>().gravityScale = Global.defGravityScale;
             Global.currState = Global.ePlayerState.WALK;
-            FMODUnity.RuntimeManager.PlayOneShot("event:/Player/land");
         }
 
         if (Input.GetButtonUp("Run") && Global.isRunning())
@@ -105,9 +104,13 @@ public class PlayerMovement : MonoBehaviour
 
     public void PlayFootStep()
     {
-        FMODUnity.RuntimeManager.PlayOneShot(SoundPath+ FootStepName);
+        FMODUnity.RuntimeManager.PlayOneShot("event:/Player/footsteps");
     }
 
+    public void PlayClimbing()
+    {
+        FMODUnity.RuntimeManager.PlayOneShot("event:/Player/climb");
+    }
 
     void FixedUpdate()
     {

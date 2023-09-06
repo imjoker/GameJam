@@ -7,7 +7,7 @@
 [LOG] OutputWASAPI::init                       : Output buffer size: 4096 samples, latency: 0.00ms, period: 10.00ms, DSP buffer: 1024 * 4
 [LOG] Thread::initThread                       : Init FMOD stream thread. Affinity: 0x4000000000000003, Priority: 0xFFFF7FFB, Stack Size: 98304, Semaphore: No, Sleep Time: 10, Looping: Yes.
 [LOG] Thread::initThread                       : Init FMOD mixer thread. Affinity: 0x4000000000000001, Priority: 0xFFFF7FFA, Stack Size: 81920, Semaphore: No, Sleep Time: 0, Looping: Yes.
-[LOG] AsyncManager::init                       : manager 0000022EC3E0E2B8 isAsync 0 updatePeriod 0.02
+[LOG] AsyncManager::init                       : manager 000001C2124C3428 isAsync 0 updatePeriod 0.02
 [LOG] AsyncManager::init                       : done
 [LOG] PlaybackSystem::init                     : 
 [LOG] Thread::initThread                       : Init FMOD Studio sample load thread. Affinity: 0x4000000000000003, Priority: 0xFFFF7FFD, Stack Size: 98304, Semaphore: No, Sleep Time: 1, Looping: No.
@@ -24,30 +24,4 @@
 [LOG] LiveUpdate::reset                        : Reset connection (reason Disconnected)
 [LOG] Thread::callback                         : FMOD stream thread finished.
 [LOG] Thread::callback                         : FMOD mixer thread finished.
-[LOG] SystemI::close                           : Closed.
-[LOG] SoundI::release                          :  (0000022E3AD851F8)
-[LOG] SoundI::release                          :     char_jump_grass_01 (0000022E8E606208)
-[LOG] SoundI::release                          :  (0000022E3AD8A838)
-[LOG] SoundI::release                          :     char_jump_grass_02 (0000022E8E604B48)
-[LOG] SoundI::release                          :  (0000022E3AD87198)
-[LOG] SoundI::release                          :     char_jump_grass_03 (0000022E8E602108)
-[LOG] SoundI::release                          :  (0000022E3AD86788)
-[LOG] SoundI::release                          :     char_jump_grass_04 (0000022E8E602E08)
-[LOG] SoundI::release                          :  (0000022EA0A597D8)
-[LOG] SoundI::release                          :     char_fs_grass_01 (0000022E8E601A88)
-[LOG] SoundI::release                          :  (0000022EA0A5C5D8)
-[LOG] SoundI::release                          :     char_fs_grass_02 (0000022E8E6073E8)
-[LOG] SoundI::release                          :  (0000022EA0A5F0F8)
-[LOG] SoundI::release                          :     char_fs_grass_03 (0000022E8E604668)
-[LOG] SoundI::release                          :  (0000022EA0A5CFE8)
-[LOG] SoundI::release                          :     char_fs_grass_04 (0000022E8E6010C8)
-[LOG] Thread::callback                         : FMOD Studio update thread finished.
-[LOG] Thread::callback                         : FMOD Studio bank load thread finished.
-[LOG] Profile::disconnectAll                   : Profiler disconnecting all clients
-[LOG] Thread::callback                         : FMOD Studio sample load thread finished.
-[LOG] LiveUpdate::release                      : 
-[LOG] LiveUpdate::reset                        : Reset connection (reason Disconnected)
-[LOG] Thread::callback                         : FMOD stream thread finished.
-[LOG] Thread::callback                         : FMOD mixer thread finished.
-[LOG] Profile::disconnectAll                   : Profiler disconnecting all clients
 [LOG] SystemI::close                           : Closed.

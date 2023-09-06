@@ -4439,12 +4439,12 @@ PrefabInstance:
     - target: {fileID: 5569291689140694495, guid: be57a1fe854ad3e40b7f05077d74c2c1,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -9.29
+      value: 32.14
       objectReference: {fileID: 0}
     - target: {fileID: 5569291689140694495, guid: be57a1fe854ad3e40b7f05077d74c2c1,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.86
+      value: 15.76
       objectReference: {fileID: 0}
     - target: {fileID: 5569291689140694495, guid: be57a1fe854ad3e40b7f05077d74c2c1,
         type: 3}
@@ -4884,6 +4884,7 @@ GameObject:
   - component: {fileID: 1115348804}
   - component: {fileID: 1115348803}
   - component: {fileID: 1115348802}
+  - component: {fileID: 1115348808}
   m_Layer: 0
   m_Name: DangerZone
   m_TagString: Untagged
@@ -5077,6 +5078,37 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1115348808
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1115348801}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: Player
+  EventReference:
+    Guid:
+      Data1: -655859348
+      Data2: 1286195049
+      Data3: -1045396037
+      Data4: 504435145
+    Path: event:/Player/death
+  Event: 
+  PlayEvent: 5
+  StopEvent: 0
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  AllowNonRigidbodyDoppler: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 20
 --- !u!1001 &1155531368
 PrefabInstance:
   m_ObjectHideFlags: 0
