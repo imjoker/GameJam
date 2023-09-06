@@ -34,8 +34,7 @@ public class MonkeyAI : MonoBehaviour
     {
         if (Input.GetButtonUp("Interact") && isPlayerNearby)
         {
-
-            player.IsClimbingAbilityUnlocked = true;
+            player.TransformPlayerIntoMonkeyHuman();
 
             source.clip = audioClips[currAudioNdx];
 

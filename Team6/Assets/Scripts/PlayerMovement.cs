@@ -19,10 +19,10 @@ public class PlayerMovement : MonoBehaviour
     public float speed = 25f;
     public float climbSpeed = 1f;
     public bool IsClimbingAbilityUnlocked = false;
+    public Sprite MonkeySprite;
 
     public string FootStepName;
     const string SoundPath= "event:/Player/";
-
 
     //Code added by Joe to enable camera following character
     public Camera mianCamera;
@@ -42,7 +42,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (IsClimbingAbilityUnlocked && Input.GetButton("Climb") && controller.IsNearAnyPillar())
         {
-            // TODO: Add transition to Monkey here.
+            PlayerAnimator.SetBool("IsClimbing", true);
 
             // Stops the player from being affected by gravity while on ladder
             gameObject.GetComponent<Rigidbody2D>().gravityScale = 0;
@@ -53,7 +53,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (!Input.GetButton("Climb") && Global.isClimbing())
         {
-            // TODO: Add transition back to player here.
+            PlayerAnimator.SetBool("IsClimbing", false);
 
             // reset gravity
             gameObject.GetComponent<Rigidbody2D>().gravityScale = Global.defGravityScale;
@@ -76,6 +76,7 @@ public class PlayerMovement : MonoBehaviour
             gameObject.GetComponent<Rigidbody2D>().gravityScale = Global.defGravityScale;
             FMODUnity.RuntimeManager.PlayOneShot("event:/Player/jump");
             PlayerAnimator.SetTrigger("Jump");
+            PlayerAnimator.SetBool("IsClimbing", false);
         }
 
 
@@ -84,6 +85,7 @@ public class PlayerMovement : MonoBehaviour
         horizontalMove = Input.GetAxisRaw("Horizontal") * finalSpeed;
         verticalMove = Input.GetAxisRaw("Vertical") * climbSpeed;
         PlayerAnimator.SetFloat("Speed", Mathf.Abs(horizontalMove));
+        PlayerAnimator.SetFloat("VerticalSpeed", Mathf.Abs(verticalMove));
 
         //Code added by Joe to enable camera following character
         mianCamera.transform.position = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, -10);
@@ -97,6 +99,7 @@ public class PlayerMovement : MonoBehaviour
         {
             gameObject.GetComponent<Rigidbody2D>().gravityScale = Global.defGravityScale;
             Global.currState = Global.ePlayerState.WALK;
+            PlayerAnimator.SetBool("IsClimbing", false);
         }
     }
 
@@ -109,5 +112,14 @@ public class PlayerMovement : MonoBehaviour
     void FixedUpdate()
     {
 
+    }
+
+    public void TransformPlayerIntoMonkeyHuman ()
+    {
+        if (IsClimbingAbilityUnlocked)
+            return;
+
+        PlayerAnimator.SetTrigger("Transform");
+        IsClimbingAbilityUnlocked = true;
     }
 }

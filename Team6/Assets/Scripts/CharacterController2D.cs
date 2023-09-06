@@ -169,14 +169,16 @@ public class CharacterController2D : MonoBehaviour
 	{
 		if (IsNearToAPillar(m_LeftPillarCheck) && m_FacingRight)
 		{
-            Flip();
+            //Flip();
 			return m_IsNearPillar;
         }
 
-        if (IsNearToAPillar(m_RightPillarCheck) && !m_FacingRight)
-            Flip();
+        //if (IsNearToAPillar(m_RightPillarCheck) && !m_FacingRight)
+          //  Flip();
 
-		return m_IsNearPillar;
+		IsNearToAPillar(m_RightPillarCheck);
+
+        return m_IsNearPillar;
     }
 
     private bool isOnPlatform()
