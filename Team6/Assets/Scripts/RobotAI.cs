@@ -32,6 +32,6 @@ public class RobotAI : MonoBehaviour
 
         other.gameObject.SetActive(false);
 
-        other.gameObject.GetComponent<CharacterController2D>().Invoke("ReSpawnAtSavedCheckPoint", 2);
+        other.gameObject.GetComponent<PlayerMovement>().Invoke("ReSpawnAtSavedCheckPoint", 2);
     }
 }

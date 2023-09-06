@@ -122,4 +122,14 @@ public class PlayerMovement : MonoBehaviour
         PlayerAnimator.SetTrigger("Transform");
         IsClimbingAbilityUnlocked = true;
     }
+
+    public void ReSpawnAtSavedCheckPoint()
+    {
+        controller.ReSpawnAtSavedCheckPoint();
+
+        gameObject.SetActive(true);
+
+        if (IsClimbingAbilityUnlocked)
+            GetComponent<Animator>().SetTrigger("Transform");
+    }
 }

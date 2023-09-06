@@ -199,7 +199,5 @@ public class CharacterController2D : MonoBehaviour
 	public void ReSpawnAtSavedCheckPoint ()
 	{
 		transform.position = savedCheckPoint.position;
-
-		gameObject.SetActive(true);
-	}
+    }
 }
