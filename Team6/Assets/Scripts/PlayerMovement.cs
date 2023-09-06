@@ -12,6 +12,7 @@ public class PlayerMovement : MonoBehaviour
         CLIMB,
     }
 
+    public UIController uiController;
     public CharacterController2D controller;
     private Animator PlayerAnimator;
     private FMOD.Studio.EventInstance ClimbingSound;
@@ -124,6 +125,7 @@ public class PlayerMovement : MonoBehaviour
 
         PlayerAnimator.SetTrigger("Transform");
         IsClimbingAbilityUnlocked = true;
+        uiController.DisplayUnlockedControls();
     }
 
     public void ReSpawnAtSavedCheckPoint()
