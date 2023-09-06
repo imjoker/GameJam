@@ -15,7 +15,6 @@ public class PlayerMovement : MonoBehaviour
     public UIController uiController;
     public CharacterController2D controller;
     private Animator PlayerAnimator;
-    private FMOD.Studio.EventInstance ClimbingSound;
     float horizontalMove = 0f;
     float verticalMove = 0f;
     public float speed = 25f;

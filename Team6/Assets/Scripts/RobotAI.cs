@@ -32,6 +32,7 @@ public class RobotAI : MonoBehaviour
 
         other.gameObject.SetActive(false);
 
+        FMODUnity.RuntimeManager.PlayOneShot("event:/Player/robot_death");
         other.gameObject.GetComponent<PlayerMovement>().Invoke("ReSpawnAtSavedCheckPoint", 2);
     }
 }

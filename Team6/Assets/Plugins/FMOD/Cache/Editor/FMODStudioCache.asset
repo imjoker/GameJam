@@ -69,10 +69,10 @@ MonoBehaviour:
   Path: ../../../FMOD Studio/game_jam_fmod/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638296082066226410
+  lastModified: 638296174580959600
   FileSizes:
   - Name: Desktop
-    Value: 2068576
+    Value: 2076608
   Exists: 1
 --- !u!114 &-6787701118582912563
 MonoBehaviour:
@@ -89,10 +89,10 @@ MonoBehaviour:
   Path: ../../../FMOD Studio/game_jam_fmod/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638296082066236368
+  lastModified: 638296174580969567
   FileSizes:
   - Name: Desktop
-    Value: 1114
+    Value: 1156
   Exists: 1
 --- !u!114 &-4422822471701507333
 MonoBehaviour:
@@ -227,12 +227,13 @@ MonoBehaviour:
   - {fileID: -3208968462881799378}
   - {fileID: 639355049675865813}
   - {fileID: 1745724065866666360}
+  - {fileID: 3268133640361817606}
   EditorParameters: []
   MasterBanks:
   - {fileID: -7176476682718033817}
   StringsBanks:
   - {fileID: -6787701118582912563}
-  cacheTime: 638296082066236368
+  cacheTime: 638296174580969567
   cacheVersion: 131607
 --- !u!114 &639355049675865813
 MonoBehaviour:
@@ -306,6 +307,33 @@ MonoBehaviour:
     Data2: 1286195049
     Data3: -1045396037
     Data4: 504435145
+  Banks:
+  - {fileID: -7176476682718033817}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &3268133640361817606
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Player/robot_death
+  m_EditorClassIdentifier: 
+  Path: event:/Player/robot_death
+  Guid:
+    Data1: -1086254858
+    Data2: 1300615300
+    Data3: -2131742040
+    Data4: -1967924509
   Banks:
   - {fileID: -7176476682718033817}
   IsStream: 0
