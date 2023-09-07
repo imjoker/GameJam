@@ -10,14 +10,12 @@ public class MonkeyAI : MonoBehaviour
     private AudioSource source;
 
     [SerializeField]
-    private AudioClip[] audioClips;
+    private AudioClip audioClip;
 
     [SerializeField]
     private TextMeshPro text;
 
     private bool isPlayerNearby = false;
-
-    private int currAudioNdx = 0;
 
     PlayerMovement player;
 
@@ -27,6 +25,7 @@ public class MonkeyAI : MonoBehaviour
     void Start()
     {
         MonkeyAnimator = GetComponent<Animator>();
+        source.clip = audioClip;
     }
 
     // Update is called once per frame
@@ -35,11 +34,7 @@ public class MonkeyAI : MonoBehaviour
         if (Input.GetButtonUp("Interact") && isPlayerNearby)
         {
             player.TransformPlayerIntoMonkeyHuman();
-
-            source.clip = audioClips[currAudioNdx];
-
             source.Play();
-            currAudioNdx = ((currAudioNdx + 1) % 3);
         }
     }
 
@@ -62,6 +57,5 @@ public class MonkeyAI : MonoBehaviour
         source.Stop();
         text.enabled = false;
         isPlayerNearby = false;
-        currAudioNdx = 0;
     }
 }
