@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{c92fed04-b7aa-4789-99d0-688e61f271c4}">
+		<property name="assetPath">
+			<value>Monkey1.wav</value>
+		</property>
+		<property name="isStreaming">
+			<value>true</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>24</value>
+		</property>
+		<property name="channelCount">
+			<value>1</value>
+		</property>
+		<property name="length">
+			<value>10.645791666666666</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{2546c2e6-3672-496d-b4ad-6941ded17b8a}</destination>
+		</relationship>
+	</object>
+</objects>

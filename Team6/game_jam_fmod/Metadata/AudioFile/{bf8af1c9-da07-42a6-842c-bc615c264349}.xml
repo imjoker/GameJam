@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{bf8af1c9-da07-42a6-842c-bc615c264349}">
+		<property name="assetPath">
+			<value>char_jump_grass_01.wav</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>48</value>
+		</property>
+		<property name="channelCount">
+			<value>1</value>
+		</property>
+		<property name="length">
+			<value>0.93429166666666663</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{2546c2e6-3672-496d-b4ad-6941ded17b8a}</destination>
+		</relationship>
+	</object>
+</objects>
