@@ -100,7 +100,7 @@ ScriptsOnlyBuild:
       Script: {instanceID: 0}
     - Class: 81
       Script: {instanceID: 0}
-    - Class: 83
+    - Class: 82
       Script: {instanceID: 0}
     - Class: 91
       Script: {instanceID: 0}
@@ -221,7 +221,7 @@ ScriptsOnlyBuild:
     className: TMP_SelectionCaret
   - hash:
       serializedVersion: 2
-      Hash: c6d925055f86deddb4eb2cbaf8cfbf95
+      Hash: 1401ad114cac1aa1bdc35ea6735424c3
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: MonkeyAI
@@ -882,4 +882,4 @@ ScriptsOnlyBuild:
   platform: 19
   scenePathNames:
   - Assets/Scenes/final scene.unity
-  playerPath: C:/Users/u1132304/Documents/GitHub/GameJam/Team6/Build/Team6.exe
+  playerPath: C:/Users/u1132304/Documents/GitHub/GameJam/Team6/Build_v2/Team6.exe
