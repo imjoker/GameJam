@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿using FMOD.Studio;
+using FMODUnity;
+using System.Collections;
 using System.Collections.Generic;
 using System.Numerics;
 using TMPro;
@@ -6,12 +8,6 @@ using UnityEngine;
 using UnityEngine.Networking.Types;
 public class MonkeyAI : MonoBehaviour
 {
-    [SerializeField]
-    private AudioSource source;
-
-    [SerializeField]
-    private AudioClip audioClip;
-
     [SerializeField]
     private TextMeshPro text;
 
@@ -21,11 +17,12 @@ public class MonkeyAI : MonoBehaviour
 
     private Animator MonkeyAnimator;
 
+    FMOD.Studio.EventInstance musicInstance;
+
     // Start is called before the first frame update
     void Start()
     {
         MonkeyAnimator = GetComponent<Animator>();
-        source.clip = audioClip;
     }
 
     // Update is called once per frame
@@ -33,8 +30,13 @@ public class MonkeyAI : MonoBehaviour
     {
         if (Input.GetButtonUp("Interact") && isPlayerNearby)
         {
+            musicInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+            musicInstance.clearHandle();
+
             player.TransformPlayerIntoMonkeyHuman();
-            FMODUnity.RuntimeManager.PlayOneShot("event:/monkey");
+
+            musicInstance = FMODUnity.RuntimeManager.CreateInstance("event:/monkey");
+            musicInstance.start();
         }
     }
 
