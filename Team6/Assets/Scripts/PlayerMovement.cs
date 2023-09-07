@@ -25,6 +25,10 @@ public class PlayerMovement : MonoBehaviour
     public string FootStepName;
     const string SoundPath= "event:/Player/";
 
+    // to prevent players from spamming jump button
+    float time = 1.0f;
+    float timer = Time.time;
+
     //Code added by Joe to enable camera following character
     public Camera mianCamera;
 
@@ -69,13 +73,16 @@ public class PlayerMovement : MonoBehaviour
             finalSpeed *= 1.5f;
         }
 
-        if (Input.GetButtonDown("Jump"))
+        timer += Time.deltaTime;
+
+        if (Input.GetButtonDown("Jump") && timer >= time)
         {
             Global.currState = Global.ePlayerState.JUMP;
             gameObject.GetComponent<Rigidbody2D>().gravityScale = Global.defGravityScale;
             FMODUnity.RuntimeManager.PlayOneShot("event:/Player/jump");
             PlayerAnimator.SetTrigger("Jump");
             PlayerAnimator.SetBool("IsClimbing", false);
+            timer = 0;
         }
 
 
