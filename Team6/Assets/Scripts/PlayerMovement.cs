@@ -27,7 +27,7 @@ public class PlayerMovement : MonoBehaviour
 
     // to prevent players from spamming jump button
     float time = 1.0f;
-    float timer = Time.time;
+    float timer = 0;
 
     //Code added by Joe to enable camera following character
     public Camera mianCamera;
@@ -75,14 +75,17 @@ public class PlayerMovement : MonoBehaviour
 
         timer += Time.deltaTime;
 
-        if (Input.GetButtonDown("Jump") && timer >= time)
+        if (Input.GetButtonDown("Jump"))
         {
-            Global.currState = Global.ePlayerState.JUMP;
-            gameObject.GetComponent<Rigidbody2D>().gravityScale = Global.defGravityScale;
-            FMODUnity.RuntimeManager.PlayOneShot("event:/Player/jump");
-            PlayerAnimator.SetTrigger("Jump");
-            PlayerAnimator.SetBool("IsClimbing", false);
-            timer = 0;
+            if ((controller.m_IsNearPillar && timer >= time) || controller.IsGrounded())
+            {
+                Global.currState = Global.ePlayerState.JUMP;
+                gameObject.GetComponent<Rigidbody2D>().gravityScale = Global.defGravityScale;
+                FMODUnity.RuntimeManager.PlayOneShot("event:/Player/jump");
+                PlayerAnimator.SetTrigger("Jump");
+                PlayerAnimator.SetBool("IsClimbing", false);
+                timer = 0;
+            }
         }
 
 
