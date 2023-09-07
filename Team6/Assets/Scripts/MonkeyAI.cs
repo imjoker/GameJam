@@ -34,7 +34,7 @@ public class MonkeyAI : MonoBehaviour
         if (Input.GetButtonUp("Interact") && isPlayerNearby)
         {
             player.TransformPlayerIntoMonkeyHuman();
-            source.Play();
+            FMODUnity.RuntimeManager.PlayOneShot("event:/monkey");
         }
     }
 
@@ -54,7 +54,6 @@ public class MonkeyAI : MonoBehaviour
         if (other.tag != "Player")
             return;
 
-        source.Stop();
         text.enabled = false;
         isPlayerNearby = false;
     }
